@@ -1,0 +1,42 @@
+version: "3.3"
+services:
+  server:
+    build: ./server
+    container_name: server
+    stdin_open : true
+    hostname: 'server'
+    networks:
+      - reactapp
+    volumes:
+      - ./server_vol:/server
+  app:
+    depends_on:
+      - server
+    build: ./reactapp
+    container_name: app
+    networks:
+      - reactapp
+    ports:
+      - "3000:3000"
+
+networks:
+  reactapp:
+    driver : bridge
+
+   
+  
+
+  
+
+
+
+# version: "3.3"
+# services:
+#   web:
+#     build: .
+#     ports:
+#       - "8000:5000"
+#     volumes:
+#       - .:/code
+#   redis:
+#     image: "redis:alpine"
